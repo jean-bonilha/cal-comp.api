@@ -27,7 +27,7 @@ class DQCMODELSeeder extends Seeder
 
         for ($i=1; $i <= $count; $i++) {
             DQCMODEL::create([
-                'MODEL' => 'SSS',
+                'MODEL' => 'SSD' . str_pad($i, 3, "0", STR_PAD_LEFT),
             ]);
         }
 
