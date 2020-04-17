@@ -11,7 +11,7 @@ class DQC84 extends Model
      *
      * @var string
      */
-    protected $table = 'DQCMODEL';
+    protected $table = 'DQC84';
 
     /**
      * The attributes that are mass assignable.
