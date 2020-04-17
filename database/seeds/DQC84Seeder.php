@@ -11,6 +11,21 @@ class DQC84Seeder extends Seeder
      */
     public function run()
     {
-        //
+        // How to many DQC84 you need, defaulting to 10
+
+        $count = (int)$this->command->ask('How to DQC84 do you need ?', 4);
+
+        if ($count < 4) {
+            $count = 4;
+            $this->command->info("The minor value for number of DQC84 need be 4.");
+        };
+
+        $this->command->info("Creating {$count} DQC84.");
+
+        // Create the DQC84
+
+        factory(App\DQC84::class, $count)->create();
+
+        $this->command->info('DQC84 created!');
     }
 }

@@ -12,5 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(DQCMODELSeeder::class);
+        $this->call(DQC84Seeder::class);
     }
 }
