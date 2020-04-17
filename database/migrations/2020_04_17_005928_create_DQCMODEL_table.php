@@ -15,7 +15,7 @@ class CreateDQCMODELTable extends Migration
     {
         Schema::create('DQCMODEL', function (Blueprint $table) {
             $table->bigIncrements('ID');
-            $table->string('MODEL');
+            $table->string('MODEL', 10)->unique();
             $table->timestamp('UPDATE_DT', 0);
             $table->timestamp('CREATE_DT', 0)->useCurrent();
         });

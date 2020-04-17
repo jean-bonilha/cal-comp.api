@@ -16,10 +16,10 @@ class CreateDQC841Table extends Migration
         Schema::create('DQC841', function (Blueprint $table) {
             $table->bigIncrements('ID');
             $table->unsignedBigInteger('FAT_PART_NO');
-            $table->string('PARTS_NO');
+            $table->string('PARTS_NO', 15);
             $table->integer('UNT_USG');
             $table->longText('DESCRIPTION');
-            $table->longText('REF_DESIGNATOR');
+            $table->longText('REF_DESIGNATOR')->nullable();
             $table->timestamp('UPDATE_DT', 0);
             $table->timestamp('CREATE_DT', 0)->useCurrent();
 
