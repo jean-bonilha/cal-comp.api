@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\DQCMODEL;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,7 @@ class DQCMODELController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return DQCMODEL::all();
     }
 
     /**
@@ -35,7 +26,13 @@ class DQCMODELController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'MODEL'=>'required|max:10|min:6',
+        ]);
+
+        $dqcmodel = DQCMODEL::create($request->all());
+
+        return response()->json($dqcmodel, 201);
     }
 
     /**
@@ -44,20 +41,9 @@ class DQCMODELController extends Controller
      * @param  \App\DQCMODEL  $dQCMODEL
      * @return \Illuminate\Http\Response
      */
-    public function show(DQCMODEL $dQCMODEL)
+    public function show($dQCMODEL)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\DQCMODEL  $dQCMODEL
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DQCMODEL $dQCMODEL)
-    {
-        //
+        return DQCMODEL::find($dQCMODEL);
     }
 
     /**
@@ -67,9 +53,21 @@ class DQCMODELController extends Controller
      * @param  \App\DQCMODEL  $dQCMODEL
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DQCMODEL $dQCMODEL)
+    public function update(Request $request, $dQCMODEL)
     {
-        //
+        $request->validate([
+            'MODEL'=>'required|max:10|min:6',
+        ]);
+
+        $dqcmodel = DQCMODEL::find($dQCMODEL);
+
+        if ($dqcmodel) {
+            $dqcmodel->update($request->all());
+
+            return response()->json($dqcmodel, 200);
+        }
+
+        return response()->json(['message' => 'DQCMODEL nao foi encontrado.'], 404);
     }
 
     /**
@@ -78,8 +76,8 @@ class DQCMODELController extends Controller
      * @param  \App\DQCMODEL  $dQCMODEL
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DQCMODEL $dQCMODEL)
+    public function destroy($dQCMODEL)
     {
-        //
+        return DB::delete('delete from DQCMODEL where id = ?', [$dQCMODEL]);
     }
 }
