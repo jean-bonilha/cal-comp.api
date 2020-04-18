@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('dqcmodel', 'DQCMODELController');
+
+Route::apiResource('dqc84', 'DQC84Controller');
