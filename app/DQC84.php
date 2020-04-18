@@ -34,4 +34,11 @@ class DQC84 extends Model
      */
     const UPDATED_AT = 'UPDATE_DT';
 
+    /**
+     * Get the DQC84 of the DQCMODEL.
+     */
+    public function DQC841s()
+    {
+        return $this->hasMany('App\DQC841', 'DQC84', 'ID');
+    }
 }
