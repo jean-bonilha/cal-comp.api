@@ -17,7 +17,10 @@ class CreateDQC84Table extends Migration
             $table->timestamp('UPDATE_DT', 0);
             $table->timestamp('CREATE_DT', 0)->useCurrent();
 
-            $table->foreign('MODEL')->references('ID')->on('DQCMODEL');
+            $table->foreign('MODEL')
+                ->references('ID')
+                ->on('DQCMODEL')
+                ->onDelete('cascade');
         });
     }
 

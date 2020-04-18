@@ -23,7 +23,10 @@ class CreateDQC841Table extends Migration
             $table->timestamp('UPDATE_DT', 0);
             $table->timestamp('CREATE_DT', 0)->useCurrent();
 
-            $table->foreign('FAT_PART_NO')->references('ID')->on('DQC84');
+            $table->foreign('FAT_PART_NO')
+                ->references('ID')
+                ->on('DQC84')
+                ->onDelete('cascade');
         });
     }
 
