@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(DQCMODELSeeder::class);
         $this->call(DQC84Seeder::class);
+        $this->call(DQC841Seeder::class);
     }
 }
