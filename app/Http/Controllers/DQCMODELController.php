@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Validator;
 use App\DQCMODEL;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,13 @@ class DQCMODELController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'MODEL'=>'required|max:10|min:6',
+        $validator = Validator::make($request->all(), [
+            'MODEL'=>'required|unique:DQCMODEL|max:10|min:6',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
 
         $dqcmodel = DQCMODEL::create($request->all());
 
@@ -43,7 +48,13 @@ class DQCMODELController extends Controller
      */
     public function show($dQCMODEL)
     {
-        return DQCMODEL::find($dQCMODEL);
+        $dqcmodel = DQCMODEL::find($dQCMODEL);
+
+        if (!$dqcmodel) {
+            return response()->json(['message' => 'DQCMODEL nao foi encontrado.'], 404);
+        }
+
+        return response()->json($dqcmodel);
     }
 
     /**
@@ -55,16 +66,22 @@ class DQCMODELController extends Controller
      */
     public function update(Request $request, $dQCMODEL)
     {
-        $request->validate([
-            'MODEL'=>'required|max:10|min:6',
+        $validator = Validator::make($request->all(), [
+            'MODEL'=>'required|unique:DQCMODEL|max:10|min:6',
         ]);
 
-        $dqcmodel = DQCMODEL::find($dQCMODEL);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
 
-        if ($dqcmodel) {
-            $dqcmodel->update($request->all());
+        if (DQCMODEL::find($dQCMODEL)) {
 
-            return response()->json($dqcmodel, 200);
+            DB::update(
+                'update DQCMODEL set MODEL = ? where ID = ?',
+                [$request->MODEL, $dQCMODEL]
+            );
+
+            return response()->json(['message' => 'O DQCMODEL foi atualizado com sucesso.'], 200);
         }
 
         return response()->json(['message' => 'DQCMODEL nao foi encontrado.'], 404);
@@ -78,6 +95,12 @@ class DQCMODELController extends Controller
      */
     public function destroy($dQCMODEL)
     {
-        return DB::delete('delete from DQCMODEL where id = ?', [$dQCMODEL]);
+        $deleted = DB::delete('delete from DQCMODEL where id = ?', [$dQCMODEL]);
+
+        if ($deleted) {
+            return response()->json(['message' => 'O DQCMODEL foi excluido com sucesso.'], 200);
+        }
+
+        return response()->json(['message' => 'DQCMODEL nao foi encontrado.'], 404);
     }
 }
