@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DQC841 extends Model
 {
+    protected $primarykey = 'ID';
+
     /**
      * The table associated with the model.
      *
@@ -18,13 +20,7 @@ class DQC841 extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'FAT_PART_NO',
-        'PARTS_NO',
-        'UNT_USG',
-        'DESCRIPTION',
-        'REF_DESIGNATOR'
-    ];
+    protected $fillable = ['FAT_PART_NO', 'PARTS_NO', 'UNT_USG', 'DESCRIPTION', 'REF_DESIGNATOR'];
 
     /**
      * The name of the "created_at" column.

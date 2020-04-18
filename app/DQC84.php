@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DQC84 extends Model
 {
+    protected $primarykey = 'ID';
+
     /**
      * The table associated with the model.
      *
