@@ -6,11 +6,12 @@ use App\DQC84;
 use App\DQCMODEL;
 use Faker\Generator as Faker;
 
-function randCode($n = 6) {
+function randCode($length = 6, $withNumbers = false) {
     $characters = 'ABCDGHKMOQRSUVWXZ';
+    $characters .= ($withNumbers) ? '0123456789' : '';
     $randomString = '';
 
-    for ($i = 0; $i < $n; $i++) {
+    for ($i = 0; $i < $length; $i++) {
         $index = rand(0, strlen($characters) - 1);
         $randomString .= $characters[$index];
     }
@@ -27,8 +28,8 @@ $factory->define(DQC84::class, function (Faker $faker) {
     $MODEL = $randomModel->MODEL;
 
     return [
-        'FAT_PART_NO' => $MODEL . randCode(),
         'MODEL' => $idForeign,
+        'FAT_PART_NO' => $MODEL . randCode(),
         'TOTAL_LOCATION' => $faker->numberBetween(0,999),
     ];
 });
