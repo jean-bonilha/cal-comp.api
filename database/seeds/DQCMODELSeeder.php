@@ -14,11 +14,11 @@ class DQCMODELSeeder extends Seeder
     {
         // How to many DQCMODEL you need, defaulting to 10
 
-        $count = (int)$this->command->ask('How to DQCMODEL do you need ?', 3);
+        $count = (int)$this->command->ask('How to DQCMODEL do you need ?', 10);
 
-        if ($count < 3) {
-            $count = 3;
-            $this->command->info("The minor value for number of DQCMODEL need be 3.");
+        if ($count < 10) {
+            $count = 10;
+            $this->command->info("The minor value for number of DQCMODEL need be 10.");
         };
 
         $this->command->info("Creating {$count} DQCMODEL.");

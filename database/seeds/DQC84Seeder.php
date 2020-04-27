@@ -13,11 +13,11 @@ class DQC84Seeder extends Seeder
     {
         // How to many DQC84 you need, defaulting to 10
 
-        $count = (int)$this->command->ask('How to DQC84 do you need ?', 4);
+        $count = (int)$this->command->ask('How to DQC84 do you need ?', 20);
 
-        if ($count < 4) {
-            $count = 4;
-            $this->command->info("The minor value for number of DQC84 need be 4.");
+        if ($count < 20) {
+            $count = 20;
+            $this->command->info("The minor value for number of DQC84 need be 20.");
         };
 
         $this->command->info("Creating {$count} DQC84.");
