@@ -78,7 +78,7 @@ class DQC84Controller extends Controller
     {
         $validator = Validator::make($request->all(), [
             'MODEL'=>'required|min:1|max:20',
-            'FAT_PART_NO' => 'required|unique:DQC84|min:10|max:15',
+            'FAT_PART_NO' => 'required|min:10|max:15',
             'TOTAL_LOCATION' => 'required|min:1|max:11',
         ]);
 
