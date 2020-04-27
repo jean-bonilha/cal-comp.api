@@ -7,6 +7,8 @@ use Validator;
 use App\DQC84;
 use App\DQC841;
 use Illuminate\Http\Request;
+use App\Http\Resources\DQC841Resource;
+use App\Http\Resources\DQC841Collection;
 
 class DQC841Controller extends Controller
 {
@@ -17,7 +19,7 @@ class DQC841Controller extends Controller
      */
     public function index()
     {
-        return DQC841::all();
+        return new DQC841Collection(DQC841::all());
     }
 
     /**
@@ -63,7 +65,8 @@ class DQC841Controller extends Controller
             return response()->json(['message' => 'DQC841 nao foi encontrado.'], 404);
         }
 
-        return response()->json($dqc841); 
+        $data = new DQC841Resource(DQC841::find($dQC841));
+        return response()->json($data, 201);
     }
 
     /**
@@ -80,7 +83,6 @@ class DQC841Controller extends Controller
             'PARTS_NO' => 'required|min:10|max:20',
             'UNT_USG' => 'required|min:1|max:11',
             'DESCRIPTION' => 'required|min:2',
-            'REF_DESIGNATOR' => 'min:2',
         ]);
 
         if ($validator->fails()) {
@@ -98,14 +100,10 @@ class DQC841Controller extends Controller
                 $request->PARTS_NO,
                 $request->UNT_USG,
                 $request->DESCRIPTION,
+                $request->REF_DESIGNATOR,
             ];
 
-            $sql = 'update DQC841 set FAT_PART_NO = ?, PARTS_NO = ?, UNT_USG = ?, DESCRIPTION = ?';
-
-            if ($request->REF_DESIGNATOR) {
-                array_push($dataUpdate, $request->REF_DESIGNATOR);
-                $sql .= ', REF_DESIGNATOR = ?';
-            }
+            $sql = 'update DQC841 set FAT_PART_NO = ?, PARTS_NO = ?, UNT_USG = ?, DESCRIPTION = ?, REF_DESIGNATOR = ?';
 
             array_push($dataUpdate, $dQC841);
 
