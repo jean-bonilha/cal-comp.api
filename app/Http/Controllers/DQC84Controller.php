@@ -7,6 +7,8 @@ use Validator;
 use App\DQC84;
 use App\DQCMODEL;
 use Illuminate\Http\Request;
+use App\Http\Resources\DQC84Resource;
+use App\Http\Resources\DQC84Collection;
 
 class DQC84Controller extends Controller
 {
@@ -17,7 +19,7 @@ class DQC84Controller extends Controller
      */
     public function index()
     {
-        return DQC84::all();
+        return new DQC84Collection(DQC84::all());
     }
 
     /**
@@ -61,7 +63,8 @@ class DQC84Controller extends Controller
             return response()->json(['message' => 'DQC84 nao foi encontrado.'], 404);
         }
 
-        return response()->json($dqc84); 
+        $data = new DQC84Resource(DQC84::find($dQC84));
+        return response()->json($data, 201);
     }
 
     /**
