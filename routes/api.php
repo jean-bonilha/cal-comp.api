@@ -23,3 +23,5 @@ Route::apiResource('dqcmodel', 'DQCMODELController');
 Route::apiResource('dqc84', 'DQC84Controller');
 
 Route::apiResource('dqc841', 'DQC841Controller');
+
+Route::get('general-report', 'GeneralReportController@index');

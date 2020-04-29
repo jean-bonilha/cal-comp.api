@@ -14,5 +14,3 @@
 Route::get('/', function () {
     return response(['message' => trans('auth.unauthorizated')], 403);
 })->name('root');
-
-Route::get('general-report', 'GeneralReportController@index');
